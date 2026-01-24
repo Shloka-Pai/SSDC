@@ -21,7 +21,7 @@
 ---
 
 <!-- CONTENT -->
-<h2>🎯 What You’ll Learn Today</h2>
+<h2>What You’ll Learn Today</h2>
 
 <ul>
   <li> <a href="#variables-constants">Variables & Constants</a></li>
@@ -37,7 +37,7 @@
 
 <!-- VARIABLES & CONSTANTS -->
 <a id="variables-constants"></a>
-<h3>🔹 Variables &amp; Constants</h3>
+<h2>🔹 Variables &amp; Constants</h2>
 
 <p><strong>Variables</strong> - store values that can change.</p>
 
@@ -70,7 +70,7 @@ print(score)
 
 <!-- DATA TYPES -->
 <a id="variables-constants"></a>
-<h3>🔹 Data Types </h3>
+<h2>🔹 Data Types </h2>
 
 <p><strong>Int</strong> - whole numbers (e.g., −10, 0, 42)</p>
 
@@ -108,6 +108,8 @@ var isGood: Bool = false
 var score: Character = 'x'
 ```
 
+---
+
 <p><strong>Optional(?)</strong> - value can be present or nil</p>
 
 ```swift
@@ -120,6 +122,8 @@ print(username)
 ```swift
 nil
 ```
+
+Assign value later -
 
 ```swift
 var username: String?
