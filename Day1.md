@@ -2,12 +2,12 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT HEADER -->
-<br />
-<div align="center">
 
-  <h1>🚀 SwiftUI App & Game Development Bootcamp</h1>
+<div align="left">
 
-  <p align="center">
+  <h1>Day 1 - Swift Fundamentals</h1>
+
+  <p align="left">
     Learn Swift from scratch and build real iOS apps and games using SwiftUI.
     <br />
     A beginner-friendly, hands-on learning journey designed for students and developers.
@@ -20,35 +20,36 @@
 
 ---
 
-<!-- ABOUT SECTION -->
-## 📘 About This Repository
+<!-- CONTENT -->
+<h2>🎯 What You’ll Learn Today</h2>
 
-This repository contains **day-wise learning material** for the  
-**SwiftUI App & Game Development Bootcamp**.
+<ul>
+  <li>🔗 <a href="#variables-constants">Variables & Constants</a></li>
+  <li>🔗 <a href="#data-types">Data Types in Swift</a></li>
+  <li>🔗 <a href="#if-else">If–Else Conditions</a></li>
+  <li>🔗 <a href="#for-loops">For Loops</a></li>
+  <li>🔗 <a href="#while-loops">While Loops</a></li>
+  <li>🔗 <a href="#operators">Comparison &amp; Logical Operators</a></li>
+</ul>
 
-The goal of this bootcamp is to help learners:
-- Understand **Swift fundamentals**
-- Learn **SwiftUI concepts step by step**
-- Apply logic through **mini games and interactive apps**
-- Build a **complete iOS app** by the end of the program
-
-Each day focuses on **one core concept**, with explanations, examples, and hands-on practice.
 
 ---
 
-<!-- COURSE STRUCTURE -->
-## 🗂 Course Structure
+<!-- VARIABLES & CONSTANTS SECTION -->
+<a id="variables-constants"></a>
+<h3>🔹 Variables & Constants</h3>
 
-- **Day 1:** Swift Language Basics  
-- **Day 2:** SwiftUI Views & Layouts  
-- **Day 3:** State, Binding & User Input  
-- **Day 4:** Navigation & App Flow  
-- **Day 5:** Animations & Transitions  
-- **Day 6:** Game Logic & Physics Basics  
-- **Day 7:** Assets, Sound & Polishing  
-- **Day 8:** Data Persistence  
-- **Day 9:** Final App Integration  
-- **Day 10:** App Demo & Deployment
+<p>
+This section introduces the concept of <strong>storing values in Swift</strong>.
+You’ll learn the difference between values that can change during execution and
+values that remain fixed throughout the program lifecycle.
+</p>
+
+<p>
+Understanding this distinction is essential for writing safe, predictable,
+and maintainable Swift code, and forms the basis for all logic used in apps and games.
+</p>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
