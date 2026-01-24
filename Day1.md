@@ -90,22 +90,22 @@ var score: Float = 9.6
 var score: Double = 6.9696969696
 ```
 
-4. <p><strong>String</strong> - whole numbers (e.g., −10, 0, 42)</p>
+4. <p><strong>String</strong> - used to store text.</p>
 
 ```swift
-var score: String = "Samyak is a good teacher"
+var fact: String = "Samyak is a good teacher"
 ```
 
 5. <p><strong>Bool</strong> - true or false</p>
 
 ```swift
-var isGood: Bool = false
+var isUnderstood: Bool = true
 ```
 
 6. <p><strong>Character</strong> - a single character</p>
 
 ```swift
-var score: Character = 'x'
+var charr: Character = 'x'
 ```
 
 7. <p><strong>Optional(?)</strong> - value can be present or nil</p>
