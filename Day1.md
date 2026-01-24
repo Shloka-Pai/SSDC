@@ -108,7 +108,7 @@ var isUnderstood: Bool = true
 var charr: Character = 'x'
 ```
 
-7. <p><strong>Optional(?)</strong> - value can be present or nil</p>
+7. <p><strong>Optional(?)</strong> - value can be present or nil (nil by default)</p>
 
 ```swift
 var username: String?
