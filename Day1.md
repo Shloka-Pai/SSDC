@@ -69,7 +69,7 @@ print(score)
 ---
 
 <!-- DATA TYPES -->
-<a id="variables-constants"></a>
+<a id="data-types"></a>
 <h2>🔹 Data Types </h2>
 
 <p><strong>Int</strong> - whole numbers (e.g., −10, 0, 42)</p>
