@@ -19,3 +19,18 @@
 </div>
 
 ---
+
+<!-- CONTENT -->
+<h2>What You’ll Learn Today</h2>
+
+<ul>
+  <li> <a href="#functions">Functions</a></li>
+  <li> <a href="#data-types">Data Types in Swift</a></li>
+  <li> <a href="#if-else">If–Else Conditions</a></li>
+  <li> <a href="#for-loops">For Loops</a></li>
+  <li> <a href="#while-loops">While Loops</a></li>
+  <li> <a href="#operators">Comparison &amp; Logical Operators</a></li>
+</ul>
+
+---
+
