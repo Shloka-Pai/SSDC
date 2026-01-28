@@ -172,7 +172,6 @@ Background
 ```
 
 ---
----
 
 <!-- Day 2 Code -->
 <a id="code"></a>
