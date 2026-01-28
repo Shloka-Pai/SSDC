@@ -86,3 +86,89 @@ and gives you output.
   ```
 
 ---
+<!--CLASSES -->
+<a id="classes"></a>
+<h2>🔹 Classes</h2>
+
+<p><strong>Class</strong> - blueprint / user-defined data-type.</p>
+
+- For Understanding : think of class as a remote, and the buttons are functions.
+
+```swift
+class chai {
+    var cups = 2
+
+    func drink() {
+        cups -= 1
+    }
+}
+
+let myOrder = chai()
+myOrder.drink()
+print(myOrder.cups)
+
+```
+<p>Output</p>
+
+```swift
+1
+```
+
+---
+
+<!--HStack, VStack & ZStack -->
+<a id="stacks"></a>
+<h2>🔹 HStack, VStack & ZStack</h2>
+
+1. <strong>HStack</strong> - puts things side by side.
+
+```swift
+HStack {
+    Text("Text 1")
+    Text("Text 2")
+    Text("Text 3")
+}
+```
+
+<p>Output</p>
+
+```swift
+Text 1  Text 2  Text 3
+```
+
+2. <strong>VStack</strong> - stacks things top to bottom.
+
+```swift
+VStack {
+    Text("Bread")
+    Text("Cheese")
+    Text("Bread")
+}
+```
+
+<p>Output</p>
+
+```swift
+Bread
+Cheese
+Bread
+```
+
+3. <strong>ZStack</strong> - stacks things top to bottom.
+
+```swift
+ZStack {
+    Text("Background")
+    Text("Foreground")
+}
+```
+
+<p>Output</p>
+
+```swift
+Foreground
+---------
+Background
+```
+
+---
