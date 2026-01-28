@@ -172,3 +172,111 @@ Background
 ```
 
 ---
+---
+
+<!-- Day 2 Code -->
+<a id="code"></a>
+<h2>🔹 Day 2 Codes</h2>
+
+<strong>📄 MyApp</strong>
+
+```swift
+import SwiftUI               // Imports SwiftUI framework
+
+@main                        // Marks this as the app entry point
+struct MyApp: App {          // Main app structure
+
+    var body: some Scene {  // Describes what the app shows
+        WindowGroup {       // A window for the app (iPhone screen)
+            ContentView()   // Show ContentView when app launches
+        }
+    }
+}
+```
+
+<strong>📄 ContentView</strong>
+
+```swift
+import SwiftUI               // Needed for all SwiftUI views
+import CoreGraphics          // Needed for CGFloat (screen positions)
+
+struct ContentView: View {  // Our main screen
+
+    // This variable stores how much the ground moves left/right
+    // @State means: "SwiftUI, please watch this value"
+    @State private var groundX: CGFloat = 0
+
+    var body: some View {   // Everything visible goes here
+        ZStack {            // Stack views on top of each other
+
+            // Background image
+            Image("background")
+                .resizable()        // Allow resizing
+                .scaledToFill()     // Fill the entire screen
+                .ignoresSafeArea()  // Go behind status bar & notch
+
+            VStack {         // Vertical stack (top to bottom)
+                Spacer()     // Push content to bottom
+
+                // Ground view that scrolls
+                BackgroundView(
+                    image: "ground",   // Image name from assets
+                    offsetX: groundX   // How much to move it
+                )
+                .frame(height: 90)     // Height of ground
+            }
+        }
+        // Timer = game loop (runs ~60 times per second)
+        .onReceive(
+            Timer.publish(
+                every: 0.016,          // 0.016 sec ≈ 60 FPS
+                on: .main,
+                in: .common
+            ).autoconnect()
+        ) { _ in
+
+            // Move ground to the left every frame
+            groundX -= 6
+
+            // When ground moves one full screen left,
+            // reset it to avoid disappearing
+            if groundX <= -UIScreen.main.bounds.width {
+                groundX += UIScreen.main.bounds.width
+            }
+        }
+    }
+}
+```
+
+<strong>📄 BackgroundView</strong>
+
+```swift
+import SwiftUI               // SwiftUI tools
+import CoreGraphics          // Needed for CGFloat
+
+struct BackgroundView: View {
+
+    let image: String        // Name of image to show
+    let offsetX: CGFloat     // How much to move left/right
+
+    var body: some View {
+        GeometryReader { geo in   // Gives us screen size
+
+            HStack(spacing: 0) {  // Place images side by side
+                // Repeat image 3 times to avoid gaps
+                ForEach(0..<3) { _ in
+                    Image(image)         // Load image by name
+                        .resizable()     // Allow resizing
+                        .scaledToFill()  // Fill width
+                        .frame(
+                            width: geo.size.width
+                        )                // Each image = screen width
+                }
+            }
+            // Move entire stack left/right
+            .offset(x: offsetX)
+        }
+    }
+}
+
+```
