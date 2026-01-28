@@ -19,3 +19,15 @@
 </div>
 
 ---
+
+<!-- CONTENT -->
+<h2>What You’ll Learn Today</h2>
+
+<ul>
+  <li> <a href="#functions">Functions</a></li>
+  <li> <a href="#classes">Classes</a></li>
+  <li> <a href="#stacks">HStack, VStack & ZStack </a></li>
+  <li> <a href="#code">Day 2 Codes</a></li>
+</ul>
+
+---
