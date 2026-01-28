@@ -31,3 +31,58 @@
 </ul>
 
 ---
+<!-- FUNCTIONS -->
+<a id="functions"></a>
+<h2>🔹 Functions</h2>
+
+<p>A <strong>Function is an action</strong> - something that does work.</p>
+
+```swift
+func jump() {
+    print("Dino Jumped")
+}
+
+jump()
+```
+<p>Output</p>
+
+```swift
+Dino Jumped
+```
+
+- You give the function some input, <br>
+it does work, <br>
+and gives you output.
+
+- There are two ways of passing inputs - Named Arguments & Positional Arguments. <br><br>
+  <strong>1. Named Arguemnts </strong>
+  ```swift
+  func printInfo(name: String, age: Int){
+    print("My name is \(name) and my age is \(age).")
+  }
+
+  printInfo(name: "Samyak", age: 20)
+  ```
+
+  Output
+  
+  ```swift
+  My name is Samyak and my age is 20.
+  ```
+
+  <strong>2. Positional Arguemnts </strong>
+  ```swift
+  func printInfo(_ name: String, _ age: Int){
+    print("My name is \(name) and my age is \(age).")
+  }
+
+  printInfo("Samyak", 20)
+  ```
+
+  Output
+  
+  ```swift
+  My name is Samyak and my age is 20.
+  ```
+
+---
