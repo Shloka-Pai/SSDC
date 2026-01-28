@@ -1,5 +1,5 @@
 <!-- TOP ANCHOR -->
-<a id="day1-top"></a>
+<a id="top"></a>
 
 <!-- PROJECT HEADER -->
 
@@ -280,3 +280,5 @@ struct BackgroundView: View {
 }
 
 ```
+
+<p align="right"><a href="#top">back to top</a></p>
