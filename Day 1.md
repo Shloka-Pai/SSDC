@@ -375,22 +375,6 @@ Output
 ```swift
 Samyak is a good teacher!
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 <p align="right"><a href="#day1-top">back to top</a></p>
 
