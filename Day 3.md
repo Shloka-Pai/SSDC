@@ -33,7 +33,7 @@
 <a id="update"></a>
 <h2>🔹 Day 2 Codes</h2>
 
-<strong>📄 ContentView</strong>
+<strong>📄 ContentView - Updated</strong>
 
 ```swift
 import SwiftUI
