@@ -31,6 +31,7 @@
 </ul>
 
 ---
+
 <!-- FUNCTIONS -->
 <a id="functions"></a>
 <h2>🔹 Functions</h2>
