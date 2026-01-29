@@ -5,7 +5,7 @@
 
 <div align="left">
 
-  <h1>Day 2 - SwiftUI Fundamentals</h1>
+  <h1>Day 3 - A Little More Progress</h1>
 
   <p align="left">
     Learn Swift from scratch and build real iOS apps and games using SwiftUI.
@@ -49,6 +49,9 @@ struct ContentView: View {
     @State private var velocity: CGFloat = 0     // How fast Dino moves up/down
     @State private var isJumping: Bool = false   // Prevent double jump
 
+    let groundHeight: CGFloat = 90
+    let dinoSize: CGFloat = 80    
+
     var body: some View {
         ZStack {
 
@@ -66,8 +69,10 @@ struct ContentView: View {
                     Image("dino_run")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .offset(y: dinoY)                // Move Dino UP & DOWN
+                        .frame(width: dinoSize, height: dinoSize)
+                        // Base position ABOVE ground + jump offset
+                        .offset(y: -groundHeight / 2 - dinoSize / 2 + dinoY)
+
 
                     // Ground (same as Day 1)
                     BackgroundView(
