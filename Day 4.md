@@ -5,7 +5,7 @@
 
 <div align="left">
 
-  <h1>Day 3 - cactus and Collision Detecion</h1>
+  <h1>Day 4 - Cactus and Collision Detecion</h1>
 
   <p align="left">
     Learn Swift from scratch and build real iOS apps and games using SwiftUI.
@@ -31,7 +31,7 @@
 
 <!-- Day 3 Code Updates -->
 <a id="update"></a>
-<h2>🔹 Day 2 Codes</h2>
+<h2>🔹 Day 4 Codes</h2>
 
 <strong>📄 ContentView - Updated</strong>
 
