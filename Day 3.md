@@ -31,7 +31,7 @@
 
 <!-- Day 3 Code Updates -->
 <a id="update"></a>
-<h2>🔹 Day 2 Codes</h2>
+<h2>🔹 Day 3 Codes</h2>
 
 <strong>📄 ContentView - Updated</strong>
 
