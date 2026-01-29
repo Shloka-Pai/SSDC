@@ -65,7 +65,7 @@ struct ContentView: View {
                 Spacer()
 
                 ZStack {
-                    // 🦖 DINO (NEW)
+                    // DINO (NEW)
                     Image("dino_run")
                         .resizable()
                         .scaledToFit()
@@ -83,18 +83,18 @@ struct ContentView: View {
                 }
             }
         }
-        // 🕒 GAME LOOP (same timer as Day 1)
+        // GAME LOOP (same timer as Day 1)
         .onReceive(
             Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
         ) { _ in
 
-            // 🌍 Ground movement (unchanged)
+            // Ground movement (unchanged)
             groundX -= 6
             if groundX <= -UIScreen.main.bounds.width {
                 groundX += UIScreen.main.bounds.width
             }
 
-            // 🦖 DINO PHYSICS (NEW)
+            // DINO PHYSICS (NEW)
             velocity += 1.4                           // Gravity pulls Dino down
             dinoY += velocity                         // Apply movement
 
@@ -105,7 +105,7 @@ struct ContentView: View {
                 isJumping = false
             }
         }
-        // 👆 TAP TO JUMP (NEW)
+        // TAP TO JUMP (NEW)
         .onTapGesture {
             if !isJumping {
                 velocity = -22                        // Jump force (upwards)
