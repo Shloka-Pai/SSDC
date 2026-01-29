@@ -5,7 +5,7 @@
 
 <div align="left">
 
-  <h1>Day 3 - A Little More Progress</h1>
+  <h1>Day 3 - cactus and Collision Detecion</h1>
 
   <p align="left">
     Learn Swift from scratch and build real iOS apps and games using SwiftUI.
@@ -24,7 +24,7 @@
 <h2>What You’ll Learn Today</h2>
 
 <ul>
-  <li> <a href="#update">Make Dino Jump</a></li>
+  <li> <a href="#update">Add Cactus & Collision Detection</a></li>
 </ul>
 
 ---
