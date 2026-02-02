@@ -47,6 +47,7 @@ struct SwiftDinoRunApp: App {
     }
 }
 ```
+
 <strong>📄 GameAssets</strong>
 
 ```swift
@@ -64,6 +65,133 @@ struct GameAssets {
     static let ground = "ground"
 }
 ```
+
+<strong>📄 GameViewModel</strong>
+
+```swift
+import SwiftUI
+
+class GameViewModel: ObservableObject {
+    
+    // Dino
+    @Published var dinoY: CGFloat = 0
+    @Published var isJumping = false
+    private var velocity: CGFloat = 0
+    
+    // Background
+    @Published var bgX: CGFloat = 0
+    @Published var groundX: CGFloat = 0
+    
+    // MARK: - Cactus (MULTIPLE)
+    @Published var cactusXs: [CGFloat] = []
+    
+    // Game State
+    @Published var score = 0
+    @Published var gameOver = false
+    @Published var hasStarted = false
+    
+    // Physics
+    private let gravity: CGFloat = 1.4
+    private let jumpForce: CGFloat = -22
+    
+    private let worldSpeed: CGFloat = 6
+    
+    // Cactus Config
+    private let cactusWidth: CGFloat = 60
+    private let minCactusGap: CGFloat = 210
+    private let maxCactusGap: CGFloat = 600
+    private let maxCactusOnScreen = 3
+    
+    // Timer
+    let timer = Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
+    
+    // Update Loop
+    func update() {
+        guard hasStarted && !gameOver else { return }
+        
+        // Dino physics
+        velocity += gravity
+        dinoY += velocity
+        
+        if dinoY > 0 {
+            dinoY = 0
+            velocity = 0
+            isJumping = false
+        }
+        
+        let speedMultiplier = 1 + CGFloat(score) * 0.05
+        
+        // Background
+        bgX -= worldSpeed * speedMultiplier
+        if bgX <= -UIScreen.main.bounds.width {
+            bgX += UIScreen.main.bounds.width
+        }
+        
+        // Ground
+        groundX -= worldSpeed * speedMultiplier
+        if groundX <= -UIScreen.main.bounds.width {
+            groundX += UIScreen.main.bounds.width
+        }
+        
+        // Move existing cactus
+        for i in cactusXs.indices {
+            cactusXs[i] -= 7 * speedMultiplier
+        }
+        
+        // Remove cactus that fully left screen
+        cactusXs.removeAll { $0 < -cactusWidth * 10 }
+        
+        // Spawn new cactus BEFORE old leaves screen
+        if cactusXs.count < maxCactusOnScreen {
+            if cactusXs.isEmpty ||
+                cactusXs.last! < UIScreen.main.bounds.width - randomCactusGap() {
+                
+                cactusXs.append(UIScreen.main.bounds.width + cactusWidth)
+                score += 1
+            }
+        }
+        
+        // Collision
+        for cactusX in cactusXs {
+            if cactusX < -110 && cactusX > -150 && dinoY > -30 {
+                gameOver = true
+                SoundManager.shared.play("hit")
+            }
+        }
+    }
+    
+    // Jump
+    func jump() {
+        if !hasStarted {
+            hasStarted = true
+            cactusXs = [UIScreen.main.bounds.width + 150]
+        }
+        
+        if !isJumping && !gameOver {
+            velocity = jumpForce
+            isJumping = true
+            SoundManager.shared.play("jump")
+        }
+    }
+    
+    // Reset
+    func reset() {
+        dinoY = 0
+        velocity = 0
+        cactusXs.removeAll()
+        score = 0
+        gameOver = false
+        hasStarted = false
+    }
+    
+    // Random Cactus Spawn Helper
+    private func randomCactusGap() -> CGFloat {
+        CGFloat.random(in: minCactusGap...maxCactusGap)
+    }
+}
+```
+
+
 <strong>📄 ContentView</strong>
 
 ```swift
@@ -187,6 +315,44 @@ struct DinoView: View {
                 speed: 0.12
             )
         }
+    }
+}
+```
+
+<strong>📄 CactusView</strong>
+
+```swift
+import SwiftUI
+
+struct CactusView: View {
+    
+    let x: CGFloat
+    
+    var body: some View {
+        Image(GameAssets.cactus)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 60, height: 80)   // tweak if needed
+            .offset(x: x, y: 10)            // aligns to ground
+    }
+}
+```
+
+<strong>📄 CactusView</strong>
+
+```swift
+import SwiftUI
+
+struct CactusView: View {
+    
+    let x: CGFloat
+    
+    var body: some View {
+        Image(GameAssets.cactus)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 60, height: 80)   // tweak if needed
+            .offset(x: x, y: 10)            // aligns to ground
     }
 }
 ```
