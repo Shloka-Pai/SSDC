@@ -33,155 +33,160 @@
 <a id="update"></a>
 <h2>🔹 Day 6 Codes</h2>
 
-<strong>📄 ContentView - Updated</strong>
+<strong>📄 SwiftDinoRunApp</strong>
 
 ```swift
 import SwiftUI
-import CoreGraphics
+
+@main
+struct SwiftDinoRunApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+```
+<strong>📄 GameAssets</strong>
+
+```swift
+struct GameAssets {
+    
+    // Dino
+    static let runSheet = "dino_run_sheet"
+    static let jumpSheet = "dino_jump_sheet"
+    
+    // Obstacle
+    static let cactus = "cactus"   // single png
+    
+    // Environment
+    static let background = "background"
+    static let ground = "ground"
+}
+```
+<strong>📄 ContentView</strong>
+
+```swift
+import SwiftUI
 
 struct ContentView: View {
-
-    // DAY 1 STATE (Ground)
-    @State private var groundX: CGFloat = 0
     
-    // DAY 2 STATE (Dino)
-    @State private var dinoY: CGFloat = 0
-    @State private var velocity: CGFloat = 0
-    @State private var isJumping: Bool = false
-    
-    // DAY 3 STATE (Cactus + Game)
-    @State private var cactusX: CGFloat = UIScreen.main.bounds.width + 100
-    @State private var gameOver: Bool = false
-    
-    // DAY 4 NEW STATE
-    @State private var score: Int = 0          // Player score
-    @State private var gameSpeed: CGFloat = 1  // Difficulty multiplier
+    @StateObject private var game = GameViewModel()
     
     var body: some View {
         ZStack {
             
-            // Background
-            Image("background")
-                .resizable()
-                .scaledToFill()
+            BackgroundView(image: GameAssets.background, offsetX: game.bgX)
                 .ignoresSafeArea()
             
             VStack {
-                // SCORE DISPLAY (NEW – DAY 4)
-                Text("Score: \(score)")
+                
+                Text("Score: \(game.score)")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.top)
+                    .padding()
                 
                 Spacer()
                 
                 ZStack {
-                    // Ground (BACK)
-                    BackgroundView(
-                        image: "ground",
-                        offsetX: groundX
-                    )
-                    .frame(height: 110)
+                    DinoView(isJumping: game.isJumping)
+                        .offset(x: -120, y: game.dinoY)
                     
-                    // Cactus (MIDDLE)
-                    Image("cactus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 80)
-                        .offset(x: cactusX, y: -60)
-                    
-                    // Dino (FRONT)
-                    Image("dino_run")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100)
-                        .offset(y: dinoY - 55)
+                    ForEach(game.cactusXs, id: \.self) { x in
+                        CactusView(x: x)
+                    }
                 }
+                
+                BackgroundView(image: GameAssets.ground, offsetX: game.groundX)
+                    .frame(height: 90)
             }
             
-            // GAME OVER OVERLAY (UPDATED DAY 4)
-            if gameOver {
-                VStack(spacing: 16) {
+            if !game.hasStarted {
+                Text("Tap to Start")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+            }
+            
+            if game.gameOver {
+                VStack(spacing: 20) {
                     Text("Game Over")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    // RESTART BUTTON (NEW)
                     Button("Restart") {
-                        restartGame()
+                        game.reset()
                     }
                     .padding()
                     .background(Color.black)
                     .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .cornerRadius(12)
                 }
             }
         }
-
-        // GAME LOOP
-        .onReceive(
-            Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
-        ) { _ in
-            
-            // Stop everything if game is over
-            if gameOver { return }
-            
-            // Ground movement (UPDATED – speed scales)
-            groundX -= 6 * gameSpeed
-            if groundX <= -UIScreen.main.bounds.width {
-                groundX += UIScreen.main.bounds.width
-            }
-            
-            // Dino physics (unchanged from Day 2)
-            velocity += 1.4
-            dinoY += velocity
-            
-            if dinoY > 0 {
-                dinoY = 0
-                velocity = 0
-                isJumping = false
-            }
-            
-            // Cactus movement (UPDATED – speed scales)
-            cactusX -= 7 * gameSpeed
-            
-            // Respawn cactus
-            if cactusX < -190 {
-                cactusX = UIScreen.main.bounds.width + 100
-                
-                // Increase score when cactus is avoided (NEW)
-                score += 1
-                
-                // Increase difficulty every 5 points (NEW)
-                if score % 5 == 0 {
-                    gameSpeed += 0.2
-                }
-            }
-            
-            // COLLISION DETECTION (USING YOUR VALUES)
-            if cactusX < 10 && cactusX > -20 && dinoY > -50 {
-                gameOver = true
-            }
-        }
-        
-        // TAP TO JUMP
         .onTapGesture {
-            if !isJumping && !gameOver {
-                velocity = -22
-                isJumping = true
-            }
+            game.jump()
+        }
+        .onReceive(game.timer) { _ in
+            game.update()
         }
     }
+}
+```
+
+<strong>📄 BackgroundView</strong>
+
+```swift
+import SwiftUI
+
+struct BackgroundView: View {
     
-    // RESTART LOGIC (DAY 4 NEW)
-    private func restartGame() {
-        groundX = 0
-        dinoY = 0
-        velocity = 0
-        cactusX = UIScreen.main.bounds.width + 100
-        score = 0
-        gameSpeed = 1
-        gameOver = false
+    let image: String
+    let offsetX: CGFloat
+    
+    var body: some View {
+        GeometryReader { geo in
+            HStack(spacing: 0) {
+                ForEach(0..<3) { _ in
+                    Image(image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geo.size.width)
+                }
+            }
+            .offset(x: offsetX)
+        }
+    }
+}
+```
+<strong>📄 DinoView</strong>
+
+```swift
+import SwiftUI
+
+struct DinoView: View {
+    
+    let isJumping: Bool
+    
+    var body: some View {
+        if isJumping {
+            SpriteSheetView(
+                imageName: GameAssets.jumpSheet,
+                columns: 4,
+                rows: 1,
+                frameSize: CGSize(width: 80, height: 80),
+                frameIndex: 1,   // static jump pose
+                speed: nil
+            )
+        } else {
+            SpriteSheetView(
+                imageName: GameAssets.runSheet,
+                columns: 6,
+                rows: 1,
+                frameSize: CGSize(width: 80, height: 80),
+                frameIndex: 0,
+                speed: 0.12
+            )
+        }
     }
 }
 ```
