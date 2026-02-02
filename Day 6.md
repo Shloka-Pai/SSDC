@@ -82,7 +82,7 @@ class GameViewModel: ObservableObject {
     @Published var bgX: CGFloat = 0
     @Published var groundX: CGFloat = 0
     
-    // MARK: - Cactus (MULTIPLE)
+    // Cactus (MULTIPLE)
     @Published var cactusXs: [CGFloat] = []
     
     // Game State
@@ -319,21 +319,61 @@ struct DinoView: View {
 }
 ```
 
-<strong>📄 CactusView</strong>
+<strong>📄 SpriteSheetView</strong>
 
 ```swift
 import SwiftUI
 
-struct CactusView: View {
+struct SpriteSheetView: View {
     
-    let x: CGFloat
+    let imageName: String
+    let columns: Int
+    let rows: Int
+    let frameSize: CGSize
+    let frameIndex: Int
+    let speed: Double?
+    
+    @State private var animatedFrame = 0
     
     var body: some View {
-        Image(GameAssets.cactus)
+        Image(imageName)
             .resizable()
-            .scaledToFit()
-            .frame(width: 60, height: 80)   // tweak if needed
-            .offset(x: x, y: 10)            // aligns to ground
+            .frame(
+                width: frameSize.width * CGFloat(columns),
+                height: frameSize.height * CGFloat(rows),
+                alignment: .topLeading  
+            )
+            .offset(x: xOffset, y: yOffset)
+            .frame(
+                width: frameSize.width,
+                height: frameSize.height,
+                alignment: .topLeading   
+            )
+            .clipped()
+            .onReceive(
+                Timer.publish(
+                    every: speed ?? 999,
+                    on: .main,
+                    in: .common
+                ).autoconnect()
+            ) { _ in
+                if speed != nil {
+                    animatedFrame = (animatedFrame + 1) % (columns * rows)
+                }
+            }
+    }
+    
+    
+    private var currentFrame: Int {
+        speed == nil ? frameIndex : animatedFrame
+    }
+    
+    private var xOffset: CGFloat {
+        -frameSize.width * CGFloat(currentFrame % columns)
+    }
+    
+    private var yOffset: CGFloat {
+        -frameSize.height * CGFloat(currentFrame / columns)
     }
 }
 ```
@@ -353,6 +393,24 @@ struct CactusView: View {
             .scaledToFit()
             .frame(width: 60, height: 80)   // tweak if needed
             .offset(x: x, y: 10)            // aligns to ground
+    }
+}
+```
+
+<strong>📄 SoundManager</strong>
+
+```swift
+import AVFoundation
+
+class SoundManager {
+    
+    static let shared = SoundManager()
+    private var player: AVAudioPlayer?
+    
+    func play(_ name: String) {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "wav") else { return }
+        player = try? AVAudioPlayer(contentsOf: url)
+        player?.play()
     }
 }
 ```
