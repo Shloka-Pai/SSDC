@@ -5,7 +5,7 @@
 
 <div align="left">
 
-  <h1>Day 5 - More Closer to the App </h1>
+  <h1>Day 6 - Dino Game Completed!!! </h1>
 
   <p align="left">
     Learn Swift from scratch and build real iOS apps and games using SwiftUI.
@@ -24,14 +24,14 @@
 <h2>What You’ll Learn Today</h2>
 
 <ul>
-  <li> <a href="#update">Restart Button and Difficulty Level</a></li>
+  <li> <a href="#update">Complete Your Dino Game</a></li>
 </ul>
 
 ---
 
-<!-- Day 5 Code Updates -->
+<!-- Day 6 Code Updates -->
 <a id="update"></a>
-<h2>🔹 Day 5 Codes</h2>
+<h2>🔹 Day 6 Codes</h2>
 
 <strong>📄 ContentView - Updated</strong>
 
